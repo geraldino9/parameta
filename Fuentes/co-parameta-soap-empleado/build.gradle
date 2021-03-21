@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+group 'soap'
+version '1.0'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
+    compile group: 'com.sun.xml.ws', name: 'jaxws-rt', version: '2.3.3'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.19'
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.23'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task copyToLib(type: Copy) {
+    dependsOn build
+    into "E:/Trabajo/publicadores/9043/webapps/webServiciosSoap/WEB-INF/lib"
+    from configurations.runtime
+    from jar
+}
